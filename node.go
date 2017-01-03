@@ -31,8 +31,6 @@ func main() {
 	}
 
 	go node.Noderegister(g, ch)
-	//go g.NodePutLease()
-	// fmt.Println("1")
 	node.Iproute(f, endpoints)
 	// fmt.Println("2")
 	node.Noderoute(a, endpoints)
