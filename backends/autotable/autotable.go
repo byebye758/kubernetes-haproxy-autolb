@@ -1,8 +1,8 @@
 package autotable
 
 import (
-	"autohalb/backends/con"
-	"autohalb/backends/etcd3client"
+	"github.com/byebye758/kubernetes-haproxy-autolb/autohalb/backends/etcd3client"
+	"github.com/byebye758/kubernetes-haproxy-autolb/backends/con"
 	//"encoding/json"
 	//"fmt"
 	//"github.com/coreos/etcd/clientv3"

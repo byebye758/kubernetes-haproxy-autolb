@@ -1,11 +1,11 @@
 package main
 
 import (
-	"autohalb/backends/autotable"
+	"github.com/byebye758/kubernetes-haproxy-autolb/backends/autotable"
 	//"autohalb/backends/con"
-	"autohalb/backends/etcd3client"
-	"autohalb/backends/watch"
 	"fmt"
+	"github.com/byebye758/kubernetes-haproxy-autolb/backends/etcd3client"
+	"github.com/byebye758/kubernetes-haproxy-autolb/backends/watch"
 )
 
 var (
