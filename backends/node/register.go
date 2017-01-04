@@ -2,7 +2,7 @@ package node
 
 import (
 	//"autohalb/backends/con"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/etcd3client"
+	"backends/etcd3client"
 	//"fmt"
 )
 

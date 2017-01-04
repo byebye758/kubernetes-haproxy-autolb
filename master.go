@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/autotable"
+	"./backends/autotable"
 	//"autohalb/backends/con"
+	"./backends/etcd3client"
+	"./backends/watch"
 	"flag"
 	"fmt"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/etcd3client"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/watch"
 	"strings"
 )
 

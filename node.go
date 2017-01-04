@@ -1,11 +1,11 @@
 package main
 
 import (
+	"./backends/con"
+	"./backends/etcd3client"
+	"./backends/node"
+	"./backends/watch"
 	"fmt"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/con"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/etcd3client"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/node"
-	"github.com/byebye758/kubernetes-haproxy-autolb/backends/watch"
 	//"time"
 )
 
