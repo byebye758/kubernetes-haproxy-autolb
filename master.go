@@ -3,16 +3,21 @@ package main
 import (
 	"github.com/byebye758/kubernetes-haproxy-autolb/backends/autotable"
 	//"autohalb/backends/con"
+	"flag"
 	"fmt"
 	"github.com/byebye758/kubernetes-haproxy-autolb/backends/etcd3client"
 	"github.com/byebye758/kubernetes-haproxy-autolb/backends/watch"
+	"strings"
 )
 
-var (
-	endpoints = []string{"10.1.10.201:2379"}
-)
+// var (
+// 	endpoints = []string{"10.1.10.201:2379"}
+// )
 
 func main() {
+
+	var enps = flag.String(endpoints, "10.1.10.201", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202 ")
+	endpoints := strings.SplitN(enps, ",", -1)
 	a := etcd3client.Autotable{endpoints, "/autohaproxy/autotable/"}
 
 	b := etcd3client.Projecttable{endpoints, "/autohaproxy/project/"}
