@@ -24,4 +24,5 @@ c，haproxy端实现了自动注册，当haproxy掉线后 释放后端资源其�
 
 
 
+![Aaron Swartz](https://github.com/byebye758/kubernetes-haproxy-autolb/blob/master/doc/架构图.jpg）
 532549992@qq.com  欢迎大家一起交流
