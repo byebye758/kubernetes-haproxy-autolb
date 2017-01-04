@@ -1,12 +1,12 @@
 package watch
 
 import (
-	"backends/autotable"
-	"backends/etcd3client"
-	"backends/node"
 	"context"
 	"fmt"
 	"github.com/coreos/etcd/clientv3"
+	"kubernetes-haproxy-autolb/backends/autotable"
+	"kubernetes-haproxy-autolb/backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/node"
 	"log"
 	"time"
 )

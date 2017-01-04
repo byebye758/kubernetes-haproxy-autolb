@@ -1,7 +1,7 @@
 package con
 
 import (
-	"backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/etcd3client"
 	"strings"
 )
 

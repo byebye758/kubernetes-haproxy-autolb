@@ -1,10 +1,10 @@
 package node
 
 import (
-	"backends/con"
-	"backends/etcd3client"
-	"backends/node/cmd"
 	"fmt"
+	"kubernetes-haproxy-autolb/backends/con"
+	"kubernetes-haproxy-autolb/backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/node/cmd"
 	"strings"
 )
 

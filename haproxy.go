@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./backends/con"
-	"./backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/con"
+	"kubernetes-haproxy-autolb/backends/etcd3client"
 	//"encoding/json"
 	"fmt"
 	//"net"

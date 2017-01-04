@@ -1,12 +1,12 @@
 package main
 
 import (
-	"./backends/autotable"
+	"kubernetes-haproxy-autolb/backends/autotable"
 	//"autohalb/backends/con"
-	"./backends/etcd3client"
-	"./backends/watch"
 	"flag"
 	"fmt"
+	"kubernetes-haproxy-autolb/backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/watch"
 	"strings"
 )
 
@@ -16,8 +16,12 @@ import (
 
 func main() {
 
-	var enps = flag.String(endpoints, "10.1.10.201", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202 ")
-	endpoints := strings.SplitN(enps, ",", -1)
+	var enps = flag.String("endpoints", "10.1.10.201:2379", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202:2379 ")
+	flag.Parse()
+
+	endpoints := strings.SplitN(*enps, ",", -1)
+	//fmt.Println(endpoints)
+
 	a := etcd3client.Autotable{endpoints, "/autohaproxy/autotable/"}
 
 	b := etcd3client.Projecttable{endpoints, "/autohaproxy/project/"}
