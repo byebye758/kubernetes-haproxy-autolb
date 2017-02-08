@@ -73,11 +73,6 @@ type NodeRegister struct {
 
 func (e Pod) Get() (AA []map[string]string) {
 
-	// var (
-	// 	dialTimeout    = 5 * time.Second
-	// 	requestTimeout = 2 * time.Second
-	// )
-
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   e.Endpoints,
 		DialTimeout: dialTimeout,

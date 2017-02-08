@@ -11,6 +11,7 @@ import (
 // var (
 // 	endpoints = []string{"10.1.10.201:2379"}
 // )
+/*添加pod返回到haproxy的回程路由*/
 
 func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	nodemap := make(map[string]map[string]string) //etcd get  autotable   format map
