@@ -5,7 +5,9 @@ import (
 	"os"
 )
 
-func Log(logcontent, logname string) {
+func Log(logcontent, loglable string) {
+	logname := "/var/log/k8s-auto/k8s-auto.log"
+
 	var log = logrus.New()
 
 	file, err := os.OpenFile(logname, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
@@ -16,6 +18,10 @@ func Log(logcontent, logname string) {
 
 	}
 
-	log.Info(logcontent)
+	//log.Info(logcontent)
+
+	log.WithFields(logrus.Fields{
+		"lable": loglable,
+	}).Info(logcontent)
 
 }

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"kubernetes-haproxy-autolb/backends/con"
 	"kubernetes-haproxy-autolb/backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/log"
 	"os/exec"
 	"strings"
 )
@@ -13,7 +14,7 @@ import (
 // var (
 // 	endpoints = []string{"10.1.10.201:2379"}
 // )
-
+/* 规则7 为 本地 lo接口   路由规则   k8s service ip地址   指向 lo接口  */
 func Serviceiproute(serviceip string) {
 
 	Routetablecmd("ip route replace "+serviceip+" dev lo  scope link table ", "7")
@@ -22,6 +23,7 @@ func Serviceiproute(serviceip string) {
 
 }
 
+/*根据   etcd get 到的 路由表 刷新  node 本地 路由策略*/
 func Iproute(f etcd3client.AGetr, endpoints []string) {
 	//f := etcd3client.Node{endpoints, "/autohaproxy/node/nodeip/"}
 	etcdnodeGet := f.AGet()
@@ -103,7 +105,8 @@ func Routetablecmd(routecmd, tableid string) /*error */ {
 	_, err := cmd.CombinedOutput()
 	if err != nil {
 		//return errors.New("cmd  Error1")
-		fmt.Println(err)
+		//fmt.Println(err)
+		log.Log("cmd  exe  error", "Routetablecmd /bin/sh", "-c", routecmd+tableid)
 
 	}
 	//return nil
