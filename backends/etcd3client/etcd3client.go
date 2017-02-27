@@ -173,7 +173,7 @@ func (p Pod) Delete() {
 		log.Log("etcd ctx lose", "Pod Delete")
 		panic("etcd ctx lose Pod Delete")
 	}
-
+	fmt.Println(gres.Deleted)
 }
 
 func (h Register) PutLease() {
