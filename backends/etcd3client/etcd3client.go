@@ -526,7 +526,7 @@ func Autotableput(endpoints []string, haip string, value map[string]interface{})
 	b, err := json.Marshal(group)
 	if err != nil {
 		log.Log("etcd  Marshal", "Autotableput")
-		panic("etcd  Marshal", "Autotableput")
+		panic("etcd  Marshal Autotableput")
 	}
 	_, err = cli.Put(context.TODO(), "/autohaproxy/autotable/"+value["Podname"].(string), B2S(b), clientv3.WithLease(st.Lease))
 	if err != nil {
