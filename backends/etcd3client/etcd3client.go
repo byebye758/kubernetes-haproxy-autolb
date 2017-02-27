@@ -81,7 +81,7 @@ func (e Pod) Get() (AA []map[string]string) {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Pod Get")
-		panic("etcd  new connect  lose", "Pod Get")
+		panic("etcd  new connect  lose Pod Get")
 	}
 	defer cli.Close() // make sure to close the client
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -89,7 +89,7 @@ func (e Pod) Get() (AA []map[string]string) {
 	cancel()
 	if err != nil {
 		log.Log("etcd ctx lose", "Pod Get")
-		panic("etcd ctx lose", "Pod Get")
+		panic("etcd ctx lose Pod Get")
 	}
 	//AA := make([]map[string]string, 0)
 
