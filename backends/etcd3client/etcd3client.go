@@ -143,7 +143,7 @@ func (e Pod) Get() (AA []map[string]string) {
 			}
 		} else {
 			log.Log("json.Unmarshal error", "Pod Get")
-			panic("json.Unmarshal error", "Pod Get")
+			panic("json.Unmarshal error Pod Get")
 
 		}
 		//break
@@ -161,7 +161,7 @@ func (p Pod) Delete() {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Pod Delete")
-		panic("etcd  new connect  lose", "Pod Delete")
+		panic("etcd  new connect  lose Pod Delete")
 	}
 	defer cli.Close()
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -171,7 +171,7 @@ func (p Pod) Delete() {
 	gres, err := cli.Delete(ctx, p.Key)
 	if err != nil {
 		log.Log("etcd ctx lose", "Pod Delete")
-		panic("etcd ctx lose", "Pod Delete")
+		panic("etcd ctx lose Pod Delete")
 	}
 
 }
@@ -184,14 +184,14 @@ func (h Register) PutLease() {
 	})
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Register PutLease")
-		panic("etcd  new connect  lose", "Register PutLease")
+		panic("etcd  new connect  lose Register PutLease")
 	}
 	defer cli.Close()
 	//fmt.Println("aaa")
 	resp, err := cli.Grant(context.TODO(), 5)
 	if err != nil {
 		log.Log("etcd ctx lose", "Register PutLease")
-		panic("etcd ctx lose", "Register PutLease")
+		panic("etcd ctx lose Register PutLease")
 	}
 	//fmt.Println("Grant create")
 	type Ha struct {
@@ -205,20 +205,20 @@ func (h Register) PutLease() {
 	b, err := json.Marshal(group)
 	if err != nil {
 		log.Log("etcd json.Marshal error"+err, "Register PutLease")
-		panic("etcd json.Marshal error"+err, "Register PutLease")
+		panic("etcd json.Marshal error" + err + "Register PutLease")
 	}
 
 	_, err = cli.Put(context.TODO(), h.Key, B2S(b), clientv3.WithLease(resp.ID))
 	if err != nil {
 		log.Log("etcd  new connect put lose", "Register PutLease")
-		panic("etcd  new connect  put lose", "Register PutLease")
+		panic("etcd  new connect  put lose Register PutLease")
 	}
 
 	// the key 'foo' will be kept forever
 	ch1, kaerr := cli.KeepAlive(context.TODO(), resp.ID)
 	if kaerr != nil {
 		log.Log("etcd  new connect KeepAlive lose", "Register PutLease")
-		panic("etcd  new connect  KeepAlive lose", "Register PutLease")
+		panic("etcd  new connect  KeepAlive lose Register PutLease")
 	}
 	for {
 
@@ -239,14 +239,14 @@ func (n NodeRegister) NodePutLease() {
 	})
 	if err != nil {
 		log.Log("etcd  new connect put lose", "NodeRegister NodePutLease")
-		panic("etcd  new connect  put lose", "NodeRegister NodePutLease")
+		panic("etcd  new connect  put lose NodeRegister NodePutLease")
 	}
 	defer cli.Close()
 	//fmt.Println("aaa")
 	resp, err := cli.Grant(context.TODO(), 5)
 	if err != nil {
 		log.Log("etcd  new connect put lose", "NodeRegister NodePutLease")
-		panic("etcd  new connect  put lose", "NodeRegister NodePutLease")
+		panic("etcd  new connect  put lose NodeRegister NodePutLease")
 	}
 	//fmt.Println("Grant create")
 	type Node struct {
@@ -262,20 +262,20 @@ func (n NodeRegister) NodePutLease() {
 	b, err := json.Marshal(group)
 	if err != nil {
 		log.Log("etcd  json.Marshal error"+err, "NodeRegister NodePutLease")
-		panic("etcd  json.Marshal error"+err, "NodeRegister NodePutLease")
+		panic("etcd  json.Marshal error" + err + "NodeRegister NodePutLease")
 	}
 
 	_, err = cli.Put(context.TODO(), n.Key, B2S(b), clientv3.WithLease(resp.ID))
 	if err != nil {
 		log.Log("etcd  put error"+err, "NodeRegister NodePutLease")
-		panic("etcd  put error"+err, "NodeRegister NodePutLease")
+		panic("etcd  put error" + err + "NodeRegister NodePutLease")
 	}
 
 	// the key 'foo' will be kept forever
 	ch1, kaerr := cli.KeepAlive(context.TODO(), resp.ID)
 	if kaerr != nil {
 		log.Log("etcd  KeepAlive error"+err, "NodeRegister NodePutLease")
-		panic("etcd  KeepAlive error"+err, "NodeRegister NodePutLease")
+		panic("etcd  KeepAlive error" + err + "NodeRegister NodePutLease")
 	}
 	for {
 
@@ -296,7 +296,7 @@ func (h Haip) AGet() map[string]interface{} {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Haip AGet")
-		panic("etcd  new connect   lose", "Haip AGet")
+		panic("etcd  new connect   lose Haip AGet")
 	}
 	defer cli.Close() // make sure to close the client
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -304,7 +304,7 @@ func (h Haip) AGet() map[string]interface{} {
 	cancel()
 	if err != nil {
 		log.Log("etcd  new connect cli lose", "Haip AGet")
-		panic("etcd  new connect  cli lose", "Haip AGet")
+		panic("etcd  new connect  cli lose Haip AGet")
 	}
 	M := make(map[string]interface{})
 
@@ -317,7 +317,7 @@ func (h Haip) AGet() map[string]interface{} {
 			//fmt.Println(I["Podname"].(string))
 		} else {
 			log.Log("etcd  Unmarshal error", "Haip AGet")
-			panic("etcd  Unmarshal error", "Haip AGet")
+			panic("etcd  Unmarshal error Haip AGet")
 		}
 	}
 	return M
@@ -331,7 +331,7 @@ func (n Node) AGet() map[string]interface{} {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Node AGet")
-		panic("etcd  new connect   lose", "Node AGet")
+		panic("etcd  new connect   lose Node AGet")
 	}
 	defer cli.Close() // make sure to close the client
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -339,7 +339,7 @@ func (n Node) AGet() map[string]interface{} {
 	cancel()
 	if err != nil {
 		log.Log("etcd  new ctx  lose", "Node AGet")
-		panic("etcd  new ctx   lose", "Node AGet")
+		panic("etcd  new ctx   lose Node AGet")
 	}
 	M := make(map[string]interface{})
 
@@ -352,7 +352,7 @@ func (n Node) AGet() map[string]interface{} {
 			//fmt.Println(I["Podname"].(string))
 		} else {
 			log.Log("Unmarshal error", "Node AGet")
-			panic("Unmarshal error", "Node AGet")
+			panic("Unmarshal error Node AGet")
 		}
 	}
 	return M
@@ -367,7 +367,7 @@ func (a Autotable) AGet() map[string]interface{} {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Autotable AGet")
-		panic("etcd  new connect   lose", "Autotable AGet")
+		panic("etcd  new connect   lose Autotable AGet")
 
 	}
 	defer cli.Close() // make sure to close the client
@@ -376,7 +376,7 @@ func (a Autotable) AGet() map[string]interface{} {
 	cancel()
 	if err != nil {
 		log.Log("etcd  new ctx  lose", "Autotable AGet")
-		panic("etcd  new ctx   lose", "Autotable AGet")
+		panic("etcd  new ctx   lose Autotable AGet")
 
 	}
 	M := make(map[string]interface{})
@@ -402,7 +402,7 @@ func (p Projecttable) AGet() map[string]interface{} {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Projecttable AGet")
-		panic("etcd  new connect   lose", "Projecttable AGet")
+		panic("etcd  new connect   lose Projecttable AGet")
 
 	}
 	defer cli.Close() // make sure to close the client
@@ -411,7 +411,7 @@ func (p Projecttable) AGet() map[string]interface{} {
 	cancel()
 	if err != nil {
 		log.Log("etcd  new ctx  lose", "Projecttable AGet")
-		panic("etcd  new ctx   lose", "Projecttable AGet")
+		panic("etcd  new ctx   lose Projecttable AGet")
 
 	}
 	M := make(map[string]interface{})
@@ -437,7 +437,7 @@ func (r Routetable) AGet() map[string]interface{} {
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Routetable AGet")
-		panic("etcd  new connect   lose", "Routetable AGet")
+		panic("etcd  new connect   lose Routetable AGet")
 	}
 	defer cli.Close() // make sure to close the client
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -445,7 +445,7 @@ func (r Routetable) AGet() map[string]interface{} {
 	cancel()
 	if err != nil {
 		log.Log("etcd  new ctx  lose", "Routetable AGet")
-		panic("etcd  new ctx   lose", "Routetable AGet")
+		panic("etcd  new ctx   lose Routetable AGet")
 
 	}
 	M := make(map[string]interface{})
@@ -475,7 +475,7 @@ func Autotableput(endpoints []string, haip string, value map[string]interface{})
 
 	if err != nil {
 		log.Log("etcd  new connect  lose", "Autotableput")
-		panic("etcd  new connect   lose", "Autotableput")
+		panic("etcd  new connect   lose Autotableput")
 	}
 	defer cli.Close() // make sure to close the client
 	ctx, cancel := context.WithTimeout(context.Background(), requestTimeout)
@@ -483,7 +483,7 @@ func Autotableput(endpoints []string, haip string, value map[string]interface{})
 	cancel()
 	if err != nil {
 		log.Log("etcd  new ctx  lose", "Autotableput")
-		panic("etcd  new ctx   lose", "Autotableput")
+		panic("etcd  new ctx   lose Autotableput")
 	}
 	type Ha struct {
 		Haproxyip string
@@ -496,7 +496,7 @@ func Autotableput(endpoints []string, haip string, value map[string]interface{})
 		err = json.Unmarshal([]byte(ev.Value), &st)
 		if err != nil {
 			log.Log("etcd  Unmarshal", "Autotableput")
-			panic("etcd  Unmarshal", "Autotableput")
+			panic("etcd  Unmarshal Autotableput")
 
 		}
 
@@ -531,7 +531,7 @@ func Autotableput(endpoints []string, haip string, value map[string]interface{})
 	_, err = cli.Put(context.TODO(), "/autohaproxy/autotable/"+value["Podname"].(string), B2S(b), clientv3.WithLease(st.Lease))
 	if err != nil {
 		log.Log("etcd  TODO", "Autotableput")
-		panic("etcd  TODO", "Autotableput")
+		panic("etcd  TODO Autotableput")
 	}
 
 }
