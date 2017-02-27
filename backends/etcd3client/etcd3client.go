@@ -204,8 +204,8 @@ func (h Register) PutLease() {
 	}
 	b, err := json.Marshal(group)
 	if err != nil {
-		log.Log("etcd json.Marshal error"+err, "Register PutLease")
-		panic("etcd json.Marshal error" + err + "Register PutLease")
+		log.Log("etcd json.Marshal error", "Register PutLease")
+		panic("etcd json.Marshal error Register PutLease")
 	}
 
 	_, err = cli.Put(context.TODO(), h.Key, B2S(b), clientv3.WithLease(resp.ID))
@@ -261,21 +261,21 @@ func (n NodeRegister) NodePutLease() {
 	}
 	b, err := json.Marshal(group)
 	if err != nil {
-		log.Log("etcd  json.Marshal error"+err, "NodeRegister NodePutLease")
-		panic("etcd  json.Marshal error" + err + "NodeRegister NodePutLease")
+		log.Log("etcd  json.Marshal error", "NodeRegister NodePutLease")
+		panic("etcd  json.Marshal error NodeRegister NodePutLease")
 	}
 
 	_, err = cli.Put(context.TODO(), n.Key, B2S(b), clientv3.WithLease(resp.ID))
 	if err != nil {
-		log.Log("etcd  put error"+err, "NodeRegister NodePutLease")
-		panic("etcd  put error" + err + "NodeRegister NodePutLease")
+		log.Log("etcd  put error", "NodeRegister NodePutLease")
+		panic("etcd  put error NodeRegister NodePutLease")
 	}
 
 	// the key 'foo' will be kept forever
 	ch1, kaerr := cli.KeepAlive(context.TODO(), resp.ID)
 	if kaerr != nil {
-		log.Log("etcd  KeepAlive error"+err, "NodeRegister NodePutLease")
-		panic("etcd  KeepAlive error" + err + "NodeRegister NodePutLease")
+		log.Log("etcd  KeepAlive error", "NodeRegister NodePutLease")
+		panic("etcd  KeepAlive error NodeRegister NodePutLease")
 	}
 	for {
 
