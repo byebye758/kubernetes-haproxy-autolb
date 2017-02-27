@@ -13,6 +13,8 @@ func Getdockerip() (ip string, e error) {
 	if err != nil {
 		e := errors.New("cmd  Error")
 		return ip, e
+	} else {
+		panic("get docker ip  not ok", "Getdockerip")
 	}
 	abc := string(out)
 
