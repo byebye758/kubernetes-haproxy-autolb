@@ -1,13 +1,12 @@
 package con
 
 import (
-	//"fmt"
-	//"net"
 	"errors"
 	"os/exec"
 	"strings"
 )
 
+/*获取node端 docker ip地址*/
 func Getdockerip() (ip string, e error) {
 	cmd := exec.Command("/bin/sh", "-c", "ip addr | grep  docker0$ | awk '{print $2}'")
 	out, err := cmd.CombinedOutput()
