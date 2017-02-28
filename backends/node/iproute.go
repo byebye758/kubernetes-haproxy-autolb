@@ -74,6 +74,8 @@ func NodeOspfIpGet() (iproutemap map[string]map[string]string, e error) {
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		e := errors.New("cmd  Error")
+		log.Log("/bin/sh -c ip route show table 8", "NodeOspfIpGet")
+		panic("/bin/sh -c ip route show table 8 NodeOspfIpGet")
 		return iproutemap, e
 	}
 

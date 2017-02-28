@@ -61,7 +61,7 @@ func Nodeiproutewatch(key string, endpoints []string, f etcd3client.AGetr, ch ch
 	for wresp := range rch {
 		fmt.Println(key)
 		for _, ev := range wresp.Events {
-			fmt.Println(ev.Type)
+			fmt.Println(ev.Type, "Nodeiproutewatch")
 
 			go node.Iproute(f, endpoints)
 			ch <- key
@@ -85,7 +85,7 @@ func Nodenoderoutewatch(key string, endpoints []string, a etcd3client.AGetr, ch 
 	for wresp := range rch {
 		fmt.Println(key)
 		for _, ev := range wresp.Events {
-			fmt.Println(ev.Type)
+			fmt.Println(ev.Type, "Nodenoderoutewatch")
 
 			go node.Noderoute(a, endpoints)
 			ch <- key
