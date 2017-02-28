@@ -12,10 +12,10 @@ func Getdockerip() (ip string, e error) {
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		e := errors.New("cmd  Error")
-		return ip, e
-	} else {
 		panic("get docker ip  not ok Getdockerip")
+		return ip, e
 	}
+
 	abc := string(out)
 
 	a1 := strings.Fields(abc)
