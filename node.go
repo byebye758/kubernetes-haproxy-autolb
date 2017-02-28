@@ -29,8 +29,8 @@ func main() {
 		dockerip,
 		ch,
 	}
-
-	go node.Noderegister(g, ch)
+	g.NodePutLease() /*注册node到etcd中*/
+	//go node.Noderegister(g, ch)
 	node.Iproute(f, endpoints)
 	// fmt.Println("2")
 	node.Noderoute(a, endpoints)
