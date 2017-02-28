@@ -107,7 +107,7 @@ func Routetablecmd(routecmd, tableid string) /*error */ {
 		//return errors.New("cmd  Error1")
 		//fmt.Println(err)
 		log.Log("cmd  exe  error Routetablecmd /bin/sh -c", routecmd+tableid)
-		panic("cmd  exe  error Routetablecmd /bin/sh", "-c"+routecmd+tableid)
+		panic("cmd  exe  error Routetablecmd /bin/sh -c" + routecmd + tableid)
 	}
 
 }
