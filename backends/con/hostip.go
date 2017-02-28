@@ -1,7 +1,7 @@
 package con
 
 import (
-	"fmt"
+	//"fmt"
 	"kubernetes-haproxy-autolb/backends/log"
 	"net"
 	"strings"
@@ -12,7 +12,7 @@ func HostIP() (a string) {
 	conn, err := net.Dial("udp", "1.1.1.1:80")
 	if err != nil {
 		log.Log("Hostip error", "HostIP")
-		panic("Hostip error", "HostIP")
+		panic("Hostip error HostIP")
 		return
 	}
 	defer conn.Close()
