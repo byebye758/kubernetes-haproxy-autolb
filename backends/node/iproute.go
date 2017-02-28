@@ -110,6 +110,4 @@ func Routetablecmd(routecmd, tableid string) /*error */ {
 		panic("cmd  exe  error", "Routetablecmd /bin/sh", "-c", routecmd+tableid)
 	}
 
-	}
-	//return nil
 }
