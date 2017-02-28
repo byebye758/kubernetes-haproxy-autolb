@@ -24,7 +24,8 @@ func Noderegister(g etcd3client.NodePutLeaser, ch chan string) {
 	// 	ch,
 	// }
 
-	go g.NodePutLease()
+	//go g.NodePutLease()
+	g.NodePutLease()
 	// b := etcd3client.Node{
 	// 	endpoints,
 	// 	"/autohaproxy/node/nodeip/",
