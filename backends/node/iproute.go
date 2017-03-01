@@ -128,6 +128,7 @@ func RuleAdd(id string) {
 
 		} else {
 			Routetablecmd("ip rule add from all pref "+id+" table ", id)
+			break
 
 		}
 	}
