@@ -27,7 +27,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 	etcdnodeGet := f.AGet()
 	nodeospfipGet, _ := NodeOspfIpGet()
 	localnodeip := con.HostIP()
-	localdockerip, _ := con.Getdockerip()
+	//localdockerip, _ := con.Getdockerip()
 
 	fmt.Println(etcdnodeGet, nodeospfipGet)
 	//fmt.Println(nodeospfipGet)
@@ -38,16 +38,20 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 
 		} else {
 			fmt.Println(v["Dockerip"])
+			if k == "docker0" {
+				continue
 
-			ip := v["Dockerip"]
-			Routetablecmd("ip route del "+ip+" table ", "8") //需要注意空格
+			} else {
+				ip := v["Dockerip"]
+				Routetablecmd("ip route del "+ip+" table ", "8")
+			} //需要注意空格
 
 		}
 
 	}
 
 	//fmt.Println("route ok   ", etcdnodeGet)
-	Routetablecmd("ip route replace "+localdockerip+" dev docker0  scope link table ", "8")
+	//Routetablecmd("ip route replace "+localdockerip+" dev docker0  scope link table ", "8")
 	for k, v := range etcdnodeGet {
 		v := v.(map[string]interface{})
 		dockerip := v["Dockerip"].(string)
