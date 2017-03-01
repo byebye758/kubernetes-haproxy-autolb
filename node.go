@@ -41,6 +41,7 @@ func main() {
 	go watch.Nodenoderoutewatch("/autohaproxy/autotable/", endpoints, a, ch)
 	// go node.Iproute(f, endpoints)
 	// go node.Noderoute(a, endpoints)
+	fmt.Println(abc)
 	for {
 
 		fmt.Println(<-ch)
