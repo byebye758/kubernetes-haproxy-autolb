@@ -25,6 +25,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	for _, v := range autotable {
 		v := v.(map[string]interface{})
 		etcdnodeip := v["Nodeip"].(string)
+		fmt.Println(etcdnodeip)
 		etcdhaproxyip := v["Haproxyip"].(string)
 		etcdhaproxytable := v["Haproxytable"].(string)
 		etcdpodip := v["Podip"].(string)
