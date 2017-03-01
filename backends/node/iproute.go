@@ -28,6 +28,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 	nodeospfipGet, _ := NodeOspfIpGet()
 	localnodeip := con.HostIP()
 	//localdockerip, _ := con.Getdockerip()
+	fmt.Println(localnodeip)
 
 	fmt.Println(etcdnodeGet, nodeospfipGet)
 	//fmt.Println(nodeospfipGet)
