@@ -29,7 +29,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 	localnodeip := con.HostIP()
 	localdockerip, _ := con.Getdockerip()
 
-	Routetablecmd("ip route replace "+localdockerip+" dev docker0  scope link table ", "8")
+	//Routetablecmd("ip route replace "+localdockerip+" dev docker0  scope link table ", "8")
 
 	//fmt.Println(etcdnodeGet)
 	//fmt.Println(nodeospfipGet)
