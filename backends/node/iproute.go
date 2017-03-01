@@ -1,4 +1,3 @@
-//package node
 package node
 
 import (
@@ -18,8 +17,7 @@ import (
 func Serviceiproute(serviceip string) {
 
 	Routetablecmd("ip route replace "+serviceip+" dev lo  scope link table ", "7")
-	Routetablecmd("ip rule del pref ", "7")
-	Routetablecmd("ip rule add from all pref 7 table ", "7")
+	RuleAdd("7")
 
 }
 
@@ -62,8 +60,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 		}
 
 	}
-	Routetablecmd("ip rule del pref 8", "")
-	Routetablecmd("ip rule add from all pref 8 table ", "8")
+	RuleAdd("8")
 }
 
 func NodeOspfIpGet() (iproutemap map[string]map[string]string, e error) {
@@ -112,4 +109,26 @@ func Routetablecmd(routecmd, tableid string) /*error */ {
 		panic("cmd  exe  error Routetablecmd /bin/sh -c" + routecmd + tableid)
 	}
 
+}
+
+func RuleAdd(id string) {
+	cmd := exec.Command("/bin/sh", "-c", "ip rule show |awk -F ':' '{print $1}'")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+
+		fmt.Println(err)
+
+	}
+	//fmt.Println(string(out))
+	abc := string(out)
+	a1 := strings.Fields(abc)
+	fmt.Println(a1)
+	for _, v := range a1 {
+		if v == id {
+
+		} else {
+			Routetablecmd("ip rule add from all pref "+id+" table ", id)
+
+		}
+	}
 }
