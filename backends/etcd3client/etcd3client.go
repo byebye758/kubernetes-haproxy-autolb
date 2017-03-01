@@ -280,7 +280,7 @@ func (n NodeRegister) NodePutLease() {
 	for {
 
 		ka := <-ch1
-		fmt.Println("ttl:", ka.TTL)
+		fmt.Println("ttl:", ka.TTL, "NodePutLease")
 
 	}
 
@@ -429,6 +429,7 @@ func (p Projecttable) AGet() map[string]interface{} {
 }
 
 func (r Routetable) AGet() map[string]interface{} {
+	fmt.Println("Routetable Aget")
 
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   r.Endpoints,
