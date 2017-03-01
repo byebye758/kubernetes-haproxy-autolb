@@ -22,13 +22,13 @@ func main() {
 
 	f := etcd3client.Node{endpoints, "/autohaproxy/node/nodeip/"}
 
-	g := etcd3client.NodeRegister{
-		endpoints,
-		"/autohaproxy/node/nodeip/" + nodeip,
-		nodeip,
-		dockerip,
-		ch,
-	}
+	// g := etcd3client.NodeRegister{
+	// 	endpoints,
+	// 	"/autohaproxy/node/nodeip/" + nodeip,
+	// 	nodeip,
+	// 	dockerip,
+	// 	ch,
+	// }
 	//g.NodePutLease() /*注册node到etcd中*/
 	//go node.Noderegister(g, ch)
 	//node.Iproute(f, endpoints)
