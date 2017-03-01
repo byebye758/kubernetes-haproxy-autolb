@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"kubernetes-haproxy-autolb/backends/con"
+	//"kubernetes-haproxy-autolb/backends/con"
 	"kubernetes-haproxy-autolb/backends/etcd3client"
 	"kubernetes-haproxy-autolb/backends/node"
 	"kubernetes-haproxy-autolb/backends/watch"
@@ -16,8 +16,8 @@ var (
 
 func main() {
 	ch := make(chan string)
-	nodeip := con.HostIP()
-	dockerip, _ := con.Getdockerip()
+	//nodeip := con.HostIP()
+	//dockerip, _ := con.Getdockerip()
 	a := etcd3client.Autotable{endpoints, "/autohaproxy/autotable/"}
 
 	f := etcd3client.Node{endpoints, "/autohaproxy/node/nodeip/"}

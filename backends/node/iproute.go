@@ -131,7 +131,7 @@ func RuleAdd(id string) {
 	//fmt.Println(string(out))
 	abc := string(out)
 	a1 := strings.Fields(abc)
-	fmt.Println(a1)
+	//fmt.Println(a1)
 	cunzai := "0"
 	for _, v := range a1 {
 		if v == id {
