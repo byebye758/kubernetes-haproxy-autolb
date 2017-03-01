@@ -40,10 +40,9 @@ func main() {
 	go watch.Nodeiproutewatch("/autohaproxy/node/nodeip/", endpoints, f, ch)
 	go watch.Nodenoderoutewatch("/autohaproxy/autotable/", endpoints, a, ch)
 	go g.NodePutLease()
-
+	node.Noderoute(a, endpoints)
 	// go node.Iproute(f, endpoints)
 	// go node.Noderoute(a, endpoints)
-	fmt.Println(abc)
 	for {
 
 		fmt.Println(<-ch)
