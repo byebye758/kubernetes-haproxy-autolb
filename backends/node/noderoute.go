@@ -21,7 +21,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	autotable := a.AGet()
 	nodeip := con.HostIP()
 
-	fmt.Println(autotable, b, "Noderoute")
+	fmt.Println(autotable, b, nodeip, "Noderoute")
 	for _, v := range autotable {
 		v := v.(map[string]interface{})
 		etcdnodeip := v["Nodeip"].(string)
@@ -40,7 +40,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 		}
 
 	}
-	fmt.Println(nodemap)
+	//fmt.Println(nodemap)
 
 	for _, v := range b {
 
