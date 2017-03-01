@@ -125,7 +125,7 @@ func RuleAdd(id string) {
 	fmt.Println(a1)
 	for _, v := range a1 {
 		if v == id {
-
+			break
 		} else {
 			Routetablecmd("ip rule add from all pref "+id+" table ", id)
 			break
