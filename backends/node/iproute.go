@@ -123,13 +123,13 @@ func RuleAdd(id string) {
 	abc := string(out)
 	a1 := strings.Fields(abc)
 	fmt.Println(a1)
+	cunzai := "0"
 	for _, v := range a1 {
 		if v == id {
-			break
-		} else {
-			Routetablecmd("ip rule add from all pref "+id+" table ", id)
-			break
-
+			cunzai = "1"
 		}
+	}
+	if cunzai == "0" {
+		Routetablecmd("ip rule add from all pref "+id+" table ", id)
 	}
 }
