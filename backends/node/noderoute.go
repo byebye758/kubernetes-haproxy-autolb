@@ -60,6 +60,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 		noderulemap[v["Podip"]] = v
 
 	}
+	fmt.Println(nodemap, "NODE RULE MAP ||", noderulemap)
 
 	for _, v := range nodemap {
 		podip := v["Podip"]
