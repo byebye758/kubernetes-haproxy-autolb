@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	var enps = flag.String("endpoints", "10.1.10.201:2379", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202:2379 ")
+	var enps = flag.String("Endpoints", "10.1.10.201:2379", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202:2379 ")
 	flag.Parse()
 
 	endpoints := strings.SplitN(*enps, ",", -1)

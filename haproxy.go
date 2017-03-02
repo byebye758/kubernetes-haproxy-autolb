@@ -10,11 +10,16 @@ import (
 	//"unsafe"
 )
 
-var (
-	endpoints = []string{"10.1.10.201:2379"}
-)
+// var (
+// 	endpoints = []string{"10.1.10.201:2379"}
+// )
 
 func main() {
+	enps := flag.String("Endpoints", "10.1.10.201:2379", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202:2379 ")
+	// sip := flag.String("Serviceip", "192.168.110.0/24", "eg:  --Serviceip=192.168.110.0/24")
+	flag.Parse()
+	endpoints := strings.SplitN(*enps, ",", -1)
+
 	a := new(etcd3client.Register)
 	a.Endpoints = endpoints
 	a.Key = "/autohaproxy/haproxyip/" + con.HostIP()
