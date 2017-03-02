@@ -65,6 +65,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 		} else {
 			fmt.Println(dockerip, nodeip)
 			Routetablecmd("ip route replace "+dockerip+" via "+nodeip+" table ", "8")
+			fmt.Println(dockerip, "OKOKKKKK----------")
 
 		}
 
