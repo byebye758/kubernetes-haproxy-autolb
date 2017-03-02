@@ -55,6 +55,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	}
 	b, _ = cmd.NoderuleGet()
 	noderulemap := make(map[string]map[string]string)
+	fmt.Println(b, "print BBBB")
 	for _, v := range b {
 		fmt.Println(v)
 
