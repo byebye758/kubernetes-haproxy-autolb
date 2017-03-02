@@ -42,7 +42,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 		}
 
 	}
-	//fmt.Println(nodemap)
+	fmt.Println(nodemap, "Nodemap---------------")
 
 	for _, v := range b {
 
