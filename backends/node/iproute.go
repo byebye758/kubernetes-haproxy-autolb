@@ -45,6 +45,8 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 			} else {
 				ip := v["Dockerip"]
 				Routetablecmd("ip route del "+ip+" table ", "8")
+
+				fmt.Println("Delete  ---------------", ip)
 			} //需要注意空格
 
 		}
