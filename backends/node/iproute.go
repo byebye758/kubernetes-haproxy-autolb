@@ -30,7 +30,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 	//localdockerip, _ := con.Getdockerip()
 	fmt.Println(localnodeip)
 
-	fmt.Println(etcdnodeGet, nodeospfipGet)
+	fmt.Println(etcdnodeGet, "ETCDnodeget-----------nodeospfipGet", nodeospfipGet)
 	//fmt.Println(nodeospfipGet)
 
 	for k, v := range nodeospfipGet {
@@ -38,7 +38,7 @@ func Iproute(f etcd3client.AGetr, endpoints []string) {
 		if _, ok := etcdnodeGet[k]; ok {
 
 		} else {
-			fmt.Println(v["Dockerip"])
+			fmt.Println(v["Dockerip"], "--------------nodeospfipGet[Dockerip]")
 			if k == "docker0" {
 				continue
 
