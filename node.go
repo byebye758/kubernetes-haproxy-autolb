@@ -7,6 +7,8 @@ import (
 	"kubernetes-haproxy-autolb/backends/node"
 	"kubernetes-haproxy-autolb/backends/watch"
 	//"time"
+	"flag"
+	"strings"
 )
 
 // var (

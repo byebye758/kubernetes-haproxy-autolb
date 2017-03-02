@@ -8,6 +8,8 @@ import (
 	//"net"
 	//"strings"
 	//"unsafe"
+	"flag"
+	"strings"
 )
 
 // var (
