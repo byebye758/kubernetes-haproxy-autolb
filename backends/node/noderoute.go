@@ -56,6 +56,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	b, _ = cmd.NoderuleGet()
 	noderulemap := make(map[string]map[string]string)
 	for _, v := range b {
+		fmt.Println(v)
 
 		noderulemap[v["Podip"]] = v
 
