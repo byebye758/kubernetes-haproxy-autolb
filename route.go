@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"kubernetes-haproxy-autolb/backends/etcd3client"
+	"kubernetes-haproxy-autolb/backends/node"
 	"kubernetes-haproxy-autolb/backends/watch"
 )
 
