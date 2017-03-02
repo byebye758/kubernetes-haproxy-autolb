@@ -17,6 +17,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	nodemap := make(map[string]map[string]string) //etcd get  autotable   format map
 	//a := etcd3client.Autotable{endpoints, "/autohaproxy/autotable/"}
 	b, _ := cmd.NoderuleGet()
+	fmt.Println(b"----------NoderuleGet")
 
 	autotable := a.AGet()
 	nodeip := con.HostIP()
