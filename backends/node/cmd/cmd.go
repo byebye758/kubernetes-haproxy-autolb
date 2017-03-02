@@ -82,7 +82,7 @@ func NoderuleGet() (ipruleslice []map[string]string, e error) {
 
 			} else {
 				test := map[string]string{
-					"Nodeip": b1[2],
+					"Podip":  b1[2],
 					"Ruleid": b1[0],
 				}
 

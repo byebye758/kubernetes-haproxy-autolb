@@ -47,12 +47,12 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	for _, v := range b {
 		fmt.Println(v, "-----------bbbbb-------------")
 
-		if _, ok := nodemap[v["Nodeip"]]; ok {
-			fmt.Println(v["Nodeip"], "NodeIPOK------------------")
+		if _, ok := nodemap[v["Podip"]]; ok {
+			fmt.Println(v["Podip"], "NodeIPOK------------------")
 
 		} else {
-			fmt.Println(v["Nodeip"], "NodeIP------------------")
-			cmd.Routetablecmd("ip rule del from "+v["Nodeip"], "")
+			fmt.Println(v["Podip"], "PodIP------------------")
+			cmd.Routetablecmd("ip rule del from "+v["Podip"], "")
 
 		}
 
