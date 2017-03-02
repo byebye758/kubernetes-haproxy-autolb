@@ -49,6 +49,7 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 		if _, ok := nodemap[v["Podip"]]; ok {
 
 		} else {
+			fmt.Println(v["Nodeip"])
 			cmd.Routetablecmd("ip rule del from "+v["Nodeip"], "")
 
 		}
