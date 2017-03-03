@@ -36,6 +36,7 @@ func main() {
 	go watch.Watch("/registry/services/endpoints/default/", endpoints, a, b, c, e, d, ch)
 	go watch.Watch("/autohaproxy/haproxyip/", endpoints, a, b, c, e, d, ch)
 	go watch.Watch("/registry/pods/default/", endpoints, a, b, c, e, d, ch)
+	go watch.Watch("/autohaproxy/project/", endpoints, a, b, c, e, d, ch)
 
 	for {
 
