@@ -1,0 +1,92 @@
+#---------------------------------------------------------------------
+# Example configuration for a possible web application.  See the
+# full configuration options online.
+#
+#   http://haproxy.1wt.eu/download/1.4/doc/configuration.txt
+#
+#---------------------------------------------------------------------
+
+#---------------------------------------------------------------------
+# Global settings
+#---------------------------------------------------------------------
+global
+    # to have these messages end up in /var/log/haproxy.log you will
+    # need to:
+    #
+    # 1) configure syslog to accept network log events.  This is done
+    #    by adding the '-r' option to the SYSLOGD_OPTIONS in
+    #    /etc/sysconfig/syslog
+    #
+    # 2) configure local2 events to go to the /var/log/haproxy.log
+    #   file. A line like the following can be added to
+    #   /etc/sysconfig/syslog
+    #
+    #   local2.*                       /var/log/haproxy.log
+    #
+    log         127.0.0.1 local2 debug
+
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     1000000
+    #user        haproxy
+    #group       haproxy
+    daemon
+    nbproc  4
+    stats bind-process  all
+
+    # turn on stats unix socket
+    stats socket /var/lib/haproxy/stats
+
+#---------------------------------------------------------------------
+# common defaults that all the 'listen' and 'backend' sections will
+# use if not designated in their block
+#---------------------------------------------------------------------
+defaults
+    mode                    tcp
+    log                     global
+    option                  tcplog
+    option                  dontlognull
+    option http-server-close
+    #option forwardfor       except 127.0.0.0/8
+    option                  redispatch
+    #retries                 3
+    #timeout http-request    10s
+    timeout queue           1m
+    timeout connect         20s
+    #timeout client          1m
+    #timeout server          1m
+    #timeout http-keep-alive 10s
+    #timeout check           10s
+
+#---------------------------------------------------------------------
+# main frontend which proxys to the backends
+#---------------------------------------------------------------------
+
+
+    listen admin_status #Frontend和Backend的组合体,监控组的名称，按需自定义名称
+        bind 0.0.0.0:65532 #监听端口
+        mode http #http的7层模式
+        #mode  tcp
+        log 127.0.0.1 local3 err #错误日志记录
+        stats refresh 5s #每隔5秒自动刷新监控页面
+        stats uri /admin?stats #监控页面的url
+        stats realm itnihao\ itnihao #监控页面的提示信息
+        stats auth admin:admin #监控页面的用户和密码admin,可以设置多个用户名
+        stats auth admin1:admin1 #监控页面的用户和密码admin1
+        stats hide-version #隐藏统计页面上的HAproxy版本信息
+
+{% for project in moban  %}
+    {% set prot = project.Projectport %}
+    {% for k in prot %}
+    listen   {{ project.Projectname }}{{ k }}
+    bind 0.0.0.0:{{ k }}
+    maxconn 1000000
+    source 0.0.0.0 usesrc clientip
+        {% set pod = project.Podlist %}
+        {% for server in pod %}
+    server {{ server.Podname }} {{ server.Podip }}:{{ prot[k] }}
+        {% endfor %}
+    {% endfor %}
+{% endfor %}
+
+

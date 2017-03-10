@@ -1,0 +1,9 @@
+[global]
+etcdhost = 10.1.10.201
+etcdport = 2379
+etcdprefix = /autohaproxy/autotable
+templatename = haproxy.template
+templatepath = /opt/haproxy/templates
+haproxyconfig = /etc/haproxy/haproxy.cfg
+haproxy_lock_file = /opt/haproxy/haproxy.lock
+ha_lock_file = /opt/haproxy/ha.lock
