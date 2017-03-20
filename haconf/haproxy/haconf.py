@@ -118,7 +118,7 @@ class HaRegister():
         os.system('ps -ef|grep /opt/haproxy/ha|grep -v grep > %s' % self.hapf)
         if not (os.path.getsize(self.hapf)):
             logging.getLogger('haconf').debug('ha register is not running')
-            os.system('nohup /opt/haproxy/ha &')
+            os.system('systemctl start ha')
             logging.getLogger('haconf').debug('start ha register')
         logging.getLogger('haconf').debug('ha register is running')
 

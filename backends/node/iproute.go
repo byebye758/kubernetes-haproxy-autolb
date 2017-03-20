@@ -14,9 +14,19 @@ import (
 // 	endpoints = []string{"10.1.10.201:2379"}
 // )
 /* 规则7 为 本地 lo接口   路由规则   k8s service ip地址   指向 lo接口  */
+
+/*增加到 直连路由增加到table7 中  */
 func Serviceiproute(serviceip string) {
 
+	net := con.Hosipnetwork()
+	for _, v := range net {
+
+		Routetablecmd("ip route replace "+v["ip"]+" dev "+v["devname"]+" proto kernel  scope link table ", "7")
+
+	}
+
 	Routetablecmd("ip route replace "+serviceip+" dev lo  scope link table ", "7")
+
 	RuleAdd("7")
 
 }
