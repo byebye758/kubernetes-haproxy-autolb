@@ -2,7 +2,7 @@ package con
 
 import (
 	"errors"
-	"fmt"
+	//"fmt"
 	"kubernetes-haproxy-autolb/backends/log"
 	"net"
 	"strings"
