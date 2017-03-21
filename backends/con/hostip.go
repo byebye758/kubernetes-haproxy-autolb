@@ -1,6 +1,7 @@
 package con
 
 import (
+	"errors"
 	"fmt"
 	"kubernetes-haproxy-autolb/backends/log"
 	"net"
