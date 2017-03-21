@@ -22,23 +22,49 @@ func HostIP() (a string) {
 }
 
 func Hosipnetwork() (network map[string]map[string]string) {
-	network = make(map[string]map[string]string)
 	interfaces, err := net.Interfaces()
+	network = make(map[string]map[string]string)
 	if err != nil {
 		panic("Error : " + err.Error())
 	}
 	for _, inter := range interfaces {
-
 		add, _ := inter.Addrs()
+		//fmt.Println(len(add), add)
+
 		if len(add) == 2 {
-			ip := add[1].String()
-			devname := inter.Name
-			mac := inter.HardwareAddr.String() //获取本机MAC地址
-			fmt.Println(mac, ip, devname)
+			//fmt.Println(add, inter.Name)
 
-			network[mac] = map[string]string{"ip": ip, "devname": devname}
+			if !(strings.EqualFold(inter.Name, "lo") || strings.EqualFold(inter.Name, "docker0")) {
 
+				ip := add[0].String()
+				ip, err = formatip(ip)
+				if err != nil {
+					continue
+				}
+				devname := inter.Name
+				mac := inter.HardwareAddr.String() //获取本机MAC地址
+				//fmt.Println(mac, ip, devname)
+
+				network[mac] = map[string]string{"ip": ip, "devname": devname}
+
+			}
 		}
 	}
 	return network
+
+}
+
+func formatip(ip string) (fip string, err error) {
+	a := strings.Split(ip, ".")
+	if len(a) == 4 {
+		b := strings.Split(a[3], "/")
+		//fmt.Println(b[1])
+		fip = a[0] + "." + a[1] + "." + a[2] + "." + "0/" + b[1]
+		//fmt.Println(fip)
+		err = nil
+		return fip, err
+	}
+
+	err = errors.New("this is a new error")
+	return fip, err
 }
