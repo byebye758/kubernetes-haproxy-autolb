@@ -69,3 +69,29 @@ func formatip(ip string) (fip string, err error) {
 	err = errors.New("this is a new error")
 	return fip, err
 }
+
+//Linux  中根据网卡名称取ip
+func Devip(dev string) (ip *string) {
+	interfaces, err := net.Interfaces()
+	//network = make(map[string]map[string]string)
+	if err != nil {
+		panic("Error : " + err.Error())
+	}
+	for _, inter := range interfaces {
+		add, _ := inter.Addrs()
+
+		//fmt.Println(add, inter.Name)
+
+		if strings.EqualFold(inter.Name, dev) {
+			ad := add[0].String()
+			a := strings.Split(ad, "/")
+			ip = &a[0]
+
+		} else {
+			log.Log("get  dev ip   error,no matching equipment", "Devip")
+			panic("get  dev ip   error,no matching equipment")
+		}
+
+	}
+	return ip
+}
