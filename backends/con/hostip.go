@@ -87,9 +87,6 @@ func Devip(dev string) (ip *string) {
 			a := strings.Split(ad, "/")
 			ip = &a[0]
 
-		} else {
-			log.Log("get  dev ip   error,no matching equipment", "Devip")
-			panic("get  dev ip   error,no matching equipment")
 		}
 
 	}
