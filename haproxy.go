@@ -14,7 +14,7 @@ import (
 
 func main() {
 	enps := flag.String("Endpoints", "10.1.10.201:2379", "etcdserverip eg:--endpoints=10.1.10.201,10.1.10.202:2379 ")
-	devname := flag.String("Networkdevname", "ens192", "eg:  --Serviceip=ens192")
+	devname := flag.String("Networkdevname", "ens160", "eg:  --Serviceip=ens160")
 	flag.Parse()
 	endpoints := strings.SplitN(*enps, ",", -1)
 	dev := *devname
