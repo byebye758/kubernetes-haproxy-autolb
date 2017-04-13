@@ -84,6 +84,8 @@ func NoderuleGet() (ipruleslice []map[string]string, e error) {
 				test := map[string]string{
 					"Podip":  b1[2],
 					"Ruleid": b1[0],
+					//增加获取本地rule    table id
+					"Haproxytable": b1[4],
 				}
 
 				ipruleslice = append(ipruleslice, test)

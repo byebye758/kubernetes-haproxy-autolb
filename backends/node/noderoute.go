@@ -45,10 +45,16 @@ func Noderoute(a etcd3client.AGetr, endpoints []string) {
 	fmt.Println(nodemap, "Nodemap---------------")
 
 	for _, v := range b {
+
 		fmt.Println(v, "-----------bbbbb-------------")
 
 		if _, ok := nodemap[v["Podip"]]; ok {
 			fmt.Println(v["Podip"], "NodeIPOK------------------")
+			//判断autotable table id  与  本地id 是否相等  如果不等于就删除rule项目
+			if strings.EqualFold(v["Haproxytable"], nodemap[v["Podip"]]["Haproxytable"]) {
+			} else {
+				cmd.Routetablecmd("ip rule del from "+v["Podip"], "")
+			}
 
 		} else {
 			fmt.Println(v["Podip"], "PodIP------------------")

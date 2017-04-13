@@ -8,19 +8,23 @@ import configparser
 import socket, os, threading
 import etcd3
 import logging
+import fcntl
+import struct
 
 #需要安装的包 etcd3,jinja2,watchdog,  python 3以上的版本
 
-def getIp():
+def getIp(ifname='ens160'):
     #获取本机IP
-    csock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    csock.connect(('114.114.114.114',53))
-    (addr, port) = csock.getsockname()
-    csock.close()
-    return addr
+    #csock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    #csock.connect(('114.114.114.114',53))
+    #(addr, port) = csock.getsockname()
+    #csock.close()
+    #return addr
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s', ifname[:15].encode('utf-8')))[20:24])
 
 class GetConfig():
-    #获取配置文件
+    #加载配置文件
     def __init__(self,cnffile):
         cnf = configparser.ConfigParser()
         with open(cnffile,'r+') as cfgfile:
@@ -33,6 +37,7 @@ class GetConfig():
             self.hacnf = cnf.get('global','haproxyconfig')
             self.ha_lock_file = cnf.get('global','ha_lock_file')
             self.haproxy_lock_file = cnf.get('global','haproxy_lock_file')
+            self.hanetcar = cnf.get('global','hanetcar')
 
 
 class GetData(object):
@@ -43,7 +48,7 @@ class GetData(object):
 
     def getprefix(self,gpath):
         #获取数据
-        return self.connetcd.get_prefix(gpath)
+         return self.connetcd.get_prefix(gpath)
 
     #监控
     #def watchprefix(self,wpath):
@@ -123,20 +128,24 @@ class HaRegister():
         logging.getLogger('haconf').debug('ha register is running')
 
 
-def updateHaConf(etcdhost, etcdport, etcdprefix, haip, hacnf,datalist):
+def updateHaConf(etcdhost, etcdport, etcdprefix, haip, hacnf, datalist):
     #根据模板生成配置文件
-    data = datalist.getprefix(etcdprefix)
-    msource = datalist.dataprocess(haip, data)
+    sdata = datalist.getprefix(etcdprefix)
+    msource = datalist.dataprocess(haip, sdata)
     logging.getLogger('haconf').debug(msource)
     MoBan(config.templatename, config.templatepath, {'moban': msource}, hacnf)
 
 class Haproxy_Config_Handler(FileSystemEventHandler):
+    def __init__(self,etcddata):
+        self.etcddata = etcddata
     #监控ha模板变化
     def on_modified(self, event):
-        if event.src_path == "/opt/haproxy/templates/haproxy.template":
+        if event.src_path == os.path.join(os.getcwd(),'templates','haproxy.template'):
             logging.getLogger('haconf').debug('haproxy config template is change')
-            sdata = GetData(host=config.etcdhost, port=config.etcdport)
-            updateHaConf(config.etcdhost,config.etcdport,config.etcdprefix,getIp(),config.hacnf,sdata)
+            #sdata = GetData(host=config.etcdhost, port=config.etcdport)
+            self.etcddata.sourcedata = []
+            self.etcddata.project = []
+            updateHaConf(config.etcdhost,config.etcdport,config.etcdprefix,getIp(config.hanetcar),config.hacnf,self.etcddata)
             #更新haproxy配置文件
             logging.getLogger('haconf').debug('update haproxy config is successful')
             os.system('systemctl reload haproxy')
@@ -145,10 +154,11 @@ class Haproxy_Config_Handler(FileSystemEventHandler):
 
 
 def configCheckTask():
+    sdata = GetData(host=config.etcdhost, port=config.etcdport)
     #检查模板的变化，当模板发生变化时重新更新一下配置文件
     logging.getLogger('haconf').info('start haproxy config template wtach')
     while True:
-        event_handler = Haproxy_Config_Handler()
+        event_handler = Haproxy_Config_Handler(sdata)
         observer = Observer()
         observer.schedule(event_handler,path=config.templatepath,recursive=False)
         try:
@@ -163,12 +173,13 @@ def configCheckTask():
 def etcdWatchTask():
     #etcd监控
     logging.getLogger('haconf').info('start etcd watch')
+    sdata = GetData(host=config.etcdhost, port=config.etcdport)
     while True:
-        logging.getLogger('haconf').debug('to get the data')
-        sdata = GetData(host=config.etcdhost, port=config.etcdport)
+        sdata.sourcedata = []
+        sdata.project = []
         #获取etcd数据
         try:
-            updateHaConf(config.etcdhost,config.etcdport,config.etcdprefix,getIp(),config.hacnf,sdata)
+            updateHaConf(config.etcdhost,config.etcdport,config.etcdprefix,getIp(config.hanetcar),config.hacnf,sdata)
             #根据模板生成配置文件
         except Exception:
             #logging.getLogger('haconf').debug('update haproxy config is failure')
@@ -195,7 +206,6 @@ if __name__ == '__main__':
     #日志相关的配置,logging开头的都是打印日志
     config = GetConfig(os.path.join(os.getcwd(), 'hatemplate.cnf'))
     #加载配置文件
-
     HAR = HaRegister(config.haproxy_lock_file, config.ha_lock_file)
     #调用haproxy是否运行函数
     logging.getLogger('haconf').info('check haproxy process')
@@ -209,8 +219,11 @@ if __name__ == '__main__':
     task2 = threading.Thread(target=etcdWatchTask)
     #调用etcd监控函数
 
-    task1.start()
-    task2.start()
+    threads = []
+    threads.append(task1)
+    threads.append(task2)
 
-    task1.join()
-    task2.join()
+    for t in threads:
+        t.setDaemon(True)
+        t.start()
+    t.join()
